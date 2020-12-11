@@ -1,0 +1,4 @@
+hubprod_scan	Victory#2025	sprd12con	hubprod	d1prd12c-scan	1521	12.1.0.2	NO	YES	pdb	primary	prod
+hubprod_node1	Victory#2025	sprd12con1	hubprod	d1-up-rac1db1	1521	12.1.0.2	NO	YES	pdb	primary	prod
+hubprod_node2	Victory#2025	sprd12con2	hubprod	d1-up-rac1db2	1521	12.1.0.2	NO	YES	pdb	primary	prod
+

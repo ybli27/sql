@@ -1,0 +1,40 @@
+Read me for scripts 
+1. purpose. The scripts are used to quickly log into oracle database and run query against database and servers.
+2. there are local login scripts, which is for server local login without listener up
+3. there are easyconn login scripts, which is for remote login requiring listener up
+4. create_dblogin_easyconn.sh will create easyconn login scripts at all 3 format .sh .sql .bat for unix, sqlplus and windows
+5. central_configure.sh is used to setup a central repository for scripts
+6. server_configure.sh is used to setup a server level local repository for scripts
+
+
+scripts concepts
+1. quickly log into a databas usin .sh or .sql scripts
+2. run query against all database with pattern or list
+3. add new database easily
+4. remove database easily
+5. database characteristics
+  5.1 dbtye : cdb, pdb, 11g, 12c standalone
+  5.2 role type : primary , standby
+  5.3 environment: prod, stag, dev
+  5.4 special traits: GG replicat
+  5.5 server  name: scan, rac node, normal
+6. script name should not too long
+7 there should not too mang files in a directory
+8. seperate sh and sql login scripts in central development location
+
+
+pattern to run sql 
+echo "Usage: run_sql_ez.sh  <sql name> [pattern] "
+echo "Example: run_sql_easy_alldb.sh db_check.sql \*sys\*pdb\*.sql"
+echo " patterns: \*sys\*.sql -- all db; \*sys\*pdb5\*.sql -- all pdb"
+echo " \*sys\*cdb5\*.sql -- all cdb ; \*sys\*12c5\*.sql -- all standalong"
+
+cat dblist.txt | awk '{print $2, $4, $5, $6, "sys", $10"_"$5"_"$12 }' | xargs -n 6 ./create_dblogin_easyconn.sh
+
+cat dblist.txt | awk '{print $5 " ../scripts_2019_07_31_01.zip " }' | sort | uniq
+cat  ../scripts/scripts/shellscript/dblist.txt | awk '{print $5}' |sort | uniq | grep -v scan | sed '/^$/d' | awk '{print $1, "../scripts/scripts.zip"}' | xargs -n 2 ./push_file.sh
+
+$10 is dbtype
+$5 is hostname
+$12 is environment
+
